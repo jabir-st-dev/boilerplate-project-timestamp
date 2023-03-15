@@ -16,19 +16,23 @@ router.get("/", function (req, res) {
     })
 });
 router.get("/:date", function (req, res) {
-    if (isNaN(req.params.date)) {
-        res.send({error: "Invalid Date"});
+    var givenDate;
+
+    if (isNaN(req.params.date)) givenDate = req.params.date;
+    else givenDate = parseInt(req.params.date);
+
+    // const givenDate = (req.params.date);
+    const date = new Date(givenDate);
+    // console.log(date.toString());
+
+    if (date.toString() === 'Invalid Date') {
+        return res.send({error: "Invalid Date"});
     } else {
-        const givenDate = parseInt(req.params.date);
-
-        // const givenDate = (req.params.date);
-        const date = new Date(givenDate);
-
         const utc = date.toUTCString();
 
         // console.log(givenDate);
 
-        res.send({
+        return res.send({
             unix: givenDate,
             utc
         });
