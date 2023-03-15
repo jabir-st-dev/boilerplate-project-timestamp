@@ -7,11 +7,12 @@ router.get("/", function (req, res) {
     const date = new Date(currentDate);
 
     const utc = date.toUTCString();
+    const unix = date.getTime();
 
     // console.log(typeof (currentDate));
 
     res.send({
-        unix: currentDate,
+        unix,
         utc
     })
 });
@@ -29,11 +30,12 @@ router.get("/:date", function (req, res) {
         return res.send({error: "Invalid Date"});
     } else {
         const utc = date.toUTCString();
+        const unix = date.getTime();
 
         // console.log(givenDate);
 
         return res.send({
-            unix: givenDate,
+            unix,
             utc
         });
     }
